@@ -1,0 +1,11 @@
+<form class="form-inline" action="/products" method="post">
+  <div class="form-group">
+    <label for="filterByCategory">Category</label>
+    <select class="form-control" id="filterByCategory" name="filterByCategory">
+      {{#each settings.category as |category|}}
+        <option value="searchOptions[{{category}}]">{{category}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-default">Filter</button>
+</form>

@@ -1,0 +1,13 @@
+{
+  "development": {
+    "database": "project_mimirs_market_development",
+    "host": "127.0.0.1"
+  },
+  "test": {
+    "database": "project_mimirs_market_test",
+    "host": "127.0.0.1"
+  },
+  "production": {
+    "use_env_variable": "MONGO_URL"
+  }
+}

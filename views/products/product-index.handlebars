@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Products</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{> shared/_search-and-sort settings=searchSettings}}
+  </div>
+</div>
+
+{{#each products as |product|}}
+  {{> products/_product-card product=product }}
+{{/each}}

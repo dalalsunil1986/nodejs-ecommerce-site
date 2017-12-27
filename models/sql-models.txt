@@ -1,0 +1,5 @@
+sequelize model:create --name User --attributes "fname:string lname:string username:string email:string"
+
+sequelize model:create --name Product --attributes "name:string sku:integer description:string price:integer categoryId:integer relatedProducts:integer"
+
+sequelize model:create --name Category --attributes "name:string"
