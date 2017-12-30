@@ -1,0 +1,16 @@
+Fri, 29 Dec 2017 00:47:38 GMT sequelize deprecated String based operators are now deprecated. Please use Symbol based operators for better security, read more at http://docs.sequelizejs.com/manual/tutorial/querying.html#operators at ../../node_modules/sequelize/lib/sequelize.js:236:13
+Executing (default): SELECT "Product"."id", "Product"."Category", "Category"."id" AS "Category.id", "Category"."name" AS "Category.name", "Category"."createdAt" AS "Category.createdAt", "Category"."updatedAt" AS "Category.updatedAt" FROM "Products" AS "Product" LEFT OUTER JOIN "Categories" AS "Category" ON "Product"."categoryId" = "Category"."id";
+Unhandled rejection SequelizeDatabaseError: column Product.Category does not exist
+    at Query.formatError (/home/ubuntu/workspace/node_modules/sequelize/lib/dialects/postgres/query.js:356:16)
+    at query.catch.err (/home/ubuntu/workspace/node_modules/sequelize/lib/dialects/postgres/query.js:86:18)
+    at tryCatcher (/home/ubuntu/workspace/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/ubuntu/workspace/node_modules/bluebird/js/release/promise.js:512:31)
+    at Promise._settlePromise (/home/ubuntu/workspace/node_modules/bluebird/js/release/promise.js:569:18)
+    at Promise._settlePromise0 (/home/ubuntu/workspace/node_modules/bluebird/js/release/promise.js:614:10)
+    at Promise._settlePromises (/home/ubuntu/workspace/node_modules/bluebird/js/release/promise.js:689:18)
+    at Async._drainQueue (/home/ubuntu/workspace/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/ubuntu/workspace/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/ubuntu/workspace/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5)

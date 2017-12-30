@@ -8,10 +8,13 @@ const SearchDefaultsHelper = {};
 
 SearchDefaultsHelper.searchDefaults = () => {
   let searchDefaults = {};
+  
+  // Getting a list of current product categories
+  // Setting them as the defaults for .category
   Product.findAll({
     attributes: ['categoryId']
   }).then(productCategories => {
-    searchDefaults.category = productCategories;
+    searchDefaults.category = productCategories;   
   });
   return searchDefaults;
 };

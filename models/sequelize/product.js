@@ -8,15 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DOUBLE,
     categoryId: DataTypes.INTEGER,
     relatedProducts: DataTypes.ARRAY(DataTypes.INTEGER)
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        Product.belongsTo(models.Category, {
-          foreignKey: "categoryId"
-        });
-      }
-    }
   });
+  Product.associate = function(models) {
+      // associations can be defined here
+    Product.belongsTo(models.Category, {
+      foreignKey: "categoryId"
+    });
+  };
+  
   return Product;
 };

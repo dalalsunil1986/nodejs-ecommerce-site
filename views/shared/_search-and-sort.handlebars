@@ -1,11 +1,37 @@
-<form class="form-inline" action="/products" method="post">
-  <div class="form-group">
-    <label for="filterByCategory">Category</label>
-    <select class="form-control" id="filterByCategory" name="filterByCategory">
-      {{#each settings.category as |category|}}
-        <option value="searchOptions[{{category}}]">{{category}}</option>
-      {{/each}}
-    </select>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <form class="form-inline" action="/products" method="get">
+      <div class="form-group">
+        <label for="filterByCategory">Category</label>
+        <select class="form-control" id="filterByCategory" name="selections[category]">
+          {{#each categories as |category|}}
+            <option value="{{category.name}}">{{category.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-default">Choose Category</button>
+    </form>
   </div>
-  <button type="submit" class="btn btn-default">Filter</button>
-</form>
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <form class="form-inline" action="/products" method="get">
+      <div class="form-group">
+        <label for="filterByMinPrice">Min Price</label>
+        <select class="form-control" id="filterByMinPrice" name="selections[minPrice]">
+          <option value=""></option>
+          {{#each priceIncrements as |price|}}
+            <option value="{{price}}">{{price}}</option>
+          {{/each}}
+        </select>
+        <label for="filterByMaxPrice">Max Price</label>
+        <select class="form-control" id="filterByMaxPrice" name="selections[maxPrice]">
+          <option value=""></option>
+          {{#each priceIncrements as |price|}}
+            <option value="{{price}}">{{price}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-default">Set Price Range</button>
+    </form>
+  </div>

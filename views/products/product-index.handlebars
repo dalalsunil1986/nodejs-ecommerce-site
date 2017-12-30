@@ -8,7 +8,10 @@
     {{> shared/_search-and-sort settings=searchSettings}}
   </div>
 </div>
-
-{{#each products as |product|}}
-  {{> products/_product-card product=product }}
-{{/each}}
+<div class="row">
+  {{#each products as |product|}}
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      {{> products/_product-card product=product }}
+    </div>
+  {{/each}}
+</div>
