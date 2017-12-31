@@ -26,9 +26,6 @@ module.exports = {
       categoryId: {
         type: Sequelize.INTEGER
       },
-      relatedProducts: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

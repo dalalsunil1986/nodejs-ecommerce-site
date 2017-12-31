@@ -1,0 +1,7 @@
+<form action="/products" method="get">
+  <button type="submit" class="btn btn-default btn-sm">
+    <span class="text-capitalize">{{filterName}}: {{thisFilter}}</span>
+    <input type="hidden" name="selections[{{filterName}}]" value="clear"> 
+    <span class="close" aria-label="Close" aria-hidden="true">&nbsp;&times;</span>
+  </button>
+</form>

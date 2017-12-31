@@ -24,11 +24,7 @@ module.exports = {
         categoryId: i%CATEGORIES + 1
       });
     }
-    // products = products.map(mapProduct => {
-    //   mapProduct.relatedProducts = [];
-    //   mapProduct.relatedProducts = 
-    //     products.filter(filterProduct => mapProduct.categoryId === filterProduct);
-    // });
+   
     return queryInterface.bulkInsert('Products', products); 
   },
 

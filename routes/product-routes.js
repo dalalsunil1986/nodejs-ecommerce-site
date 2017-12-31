@@ -35,20 +35,6 @@ sqlData.getProductPriceRange().then(range => {
 console.log("formDefaults");
 console.log(formDefaults);
   
-// Search Settings
-// Start with the default search settings
-// Merge in the options from the request query and return a searchSettings object
-var _buildSearchSettings = (reqQuery) => {
-  reqQuery.selections = reqQuery.selections || {};
-  let searchSettings = reqQuery.selections;
-  // searchSettings.category = reqQuery.selections.category || {};
-  // searchSettings.minPrice = 
-  // console.log("searchSettings");
-  // console.log(searchSettings);
-  return searchSettings;
-};
-
-
 var _buildQuery = (searchSettings) => {
   console.log("building query");
   let query = {};
@@ -62,7 +48,7 @@ var _buildQuery = (searchSettings) => {
     searchSettings.category ? {name: searchSettings.category} : {};
     
   query.priceRange = {
-    price: {[Op.between]: [searchSettings.minPrice || formDefaults.priceRange.min, 20]}};
+    price: {[Op.between]: [searchSettings.minPrice || formDefaults.priceRange.min, searchSettings.maxPrice ||formDefaults.priceRange.max]}};
     // [Op.between]: [formDefaults.priceRange.min, formDefaults.priceRange.max]}
   
   console.log("completed query");
@@ -71,12 +57,26 @@ var _buildQuery = (searchSettings) => {
   return query;
 };
 
+
 // Middleware: Saving the search request query as a searchSettings session cookie.
 // _buildSearchSettings will use defaults for anything not specified. 
 router.use((req, res, next) => {  
   console.log("middleware");
-  req.session.searchSettings = _buildSearchSettings(req.query);
+  console.log("req.session");
+  console.log(req.session);
+  req.query.selections = req.query.selections || {};
+  req.session.searchSettings = req.session.searchSettings || {}; 
+  for (let prop in req.query.selections) {
+    if (req.query.selections[prop] === "clear") req.query.selections[prop] = null;
+  }
+  console.log("req.query.selections");
+  console.log(req.query.selections);
+  console.log("req.session");
+  console.log(req.session);
+  req.session.searchSettings = Object.assign(req.session.searchSettings, req.query.selections);
   res.locals.searchSettings = req.session.searchSettings;
+  console.log("req.session");
+  console.log(req.session);
   next();
 });
 
@@ -109,7 +109,7 @@ router.get('/', (req, res) => {
       categories: formDefaults.categories,
       priceRange: formDefaults.priceRange,
       priceIncrements: formDefaults.priceIncrements
-    });  
+    });
   });
 });
 
