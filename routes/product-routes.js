@@ -90,15 +90,7 @@ router.get('/', (req, res) => {
   // Produce Query
   var query = _buildQuery(req.session.searchSettings);
   // Run the resulting query
-  Product
-  .findAll({
-    where: query.priceRange,
-    include: [{
-      model: Category,
-      where: query.categories
-    }],
-    raw:true
-  })
+  sqlData.getProducts(query)
   .then(productList => {
     console.log("productList");
     console.log(productList);
@@ -113,6 +105,16 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/:id', (req, res) => {
+  sqlData.getProductAndRelated(req.params.id)
+  .then(results => {
+    console.log(results);
+    res.render('products/product-page', {
+      product: results.primary,
+      related: results.related
+    });
+  });
+});
 
 module.exports = router;
 

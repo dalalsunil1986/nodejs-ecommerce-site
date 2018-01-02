@@ -1,6 +1,18 @@
-<div class="product-card text-center">
-  <img src="{{product.imageUrl}}" alt="{{product.name}}" class="img-rounded img-thumbnail center-block">
-  <p>{{product.price}}</p>
-  <p>{{product.name}}</p>
-  <p>{{product.category}}</p>
-</div> {{!--product-card--}}
+<a href="/products/{{product.id}}">
+  <div class="product-card text-center">
+    <img src="{{product.imageUrl}}" alt="{{product.name}}" class="img-rounded img-thumbnail center-block">
+    <p>{{product.price}}</p>
+    <p>{{product.name}}</p>
+    <p>{{product.category}}</p>
+  </div> {{!--product-card
+</a>
+
+{{!--<div class="card" style="width: 18rem;">--}}
+{{!--  <img class="card-img-top" src="{{product.imageUrl}}" alt="Card image cap">--}}
+{{!--  <div class="card-body">--}}
+{{!--    <h5 class="card-title">{{product.name}}</h5>--}}
+{{!--    <p class="card-text">{{product.description}}</p>--}}
+{{!--    <p class="card-text">{{product.price}}</p>--}}
+{{!--    <a href="products/{{product.id}}" class="btn btn-primary">View Product</a>--}}
+{{!--  </div>--}}
+{{!--</div>--}}

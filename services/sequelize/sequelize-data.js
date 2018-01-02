@@ -36,19 +36,44 @@ sqlData.getProductPriceRange = () => {
   });
 };
 
+sqlData.getProducts = (query) => {
+  return Product.findAll({
+    where: query.priceRange,
+    include: [{
+      model: Category,
+      where: query.categories
+    }],
+    raw:true
+  });
+};
 
-// Product.findAll({
-//   include: [{
-//     model: Category,
-//     where: {}
-//   }],
-//   raw: true
-// }).then(result => { 
-//   console.log(result.length)
-//   console.log(result)
+
+sqlData.getProductAndRelated = (productId) => {
+  let results = {};
+  return Product
+  .find({
+    where: {id: productId},
+    include: {model: Category},
+    raw:true
+  })
+  .then(product => {
+    results.primary = product;
+    return product.categoryId;
+  })
+  .then(categoryId => {
+    return Category.findAll({
+      where: {id: categoryId},
+      include: {model: Product,
+        where: {id: {[Op.ne]: productId}} 
+      },
+      raw: true
+    });
+  })
+  .then(relatedProducts => {
+    results.related = relatedProducts;
+    return results;
+  });
   
-// });
-
-// sqlData.getProductCategories();
+};
 
 module.exports = sqlData;
