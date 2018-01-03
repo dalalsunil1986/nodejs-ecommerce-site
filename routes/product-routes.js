@@ -1,5 +1,5 @@
 const Express = require('express');
-const app = Express();
+// const app = Express();
 const router = Express.Router();
 
 // const models = require('../models/sequelize');
@@ -60,7 +60,7 @@ var _buildQuery = (searchSettings) => {
 
 // Middleware: Saving the search request query as a searchSettings session cookie.
 // _buildSearchSettings will use defaults for anything not specified. 
-router.use((req, res, next) => {  
+router.use('/', (req, res, next) => {  
   console.log("middleware");
   console.log("req.session");
   console.log(req.session);

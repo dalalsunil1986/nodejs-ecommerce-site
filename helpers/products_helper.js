@@ -4,18 +4,16 @@ const ProductsHelper = {};
 
 
 ProductsHelper.productsPath = () => '/products';
-ProductsHelper.userPath = id => `/products/${ id }`;
-// ProductsHelper.newUserPath = () => '/products/new';
-// ProductsHelper.editUserPath = () => `/products/edit`;
-ProductsHelper.destroyUserPath = id => `/products/${ id }/?_method=delete`;
-ProductsHelper.feetInches = inches => {
-  const foot = 12;
-  const feet = Math.floor(inches / foot);
-  const remainder = inches % foot;
-  let feetInches = `${ feet }'`;
-  feetInches += remainder ? ` ${ inches % foot }"` : '';
-  return feetInches;
+ProductsHelper.productPath = id => `/products/${ id }`;
+ProductsHelper.quantityRange = () => {
+  const MAX_QUANTITY_IN_VIEW = 10;
+  let quantityList = [];
+  for (let i = 1; i <= MAX_QUANTITY_IN_VIEW; i++) {
+    quantityList.push(i);
+  }
+  return quantityList;
 };
+
 
 
 

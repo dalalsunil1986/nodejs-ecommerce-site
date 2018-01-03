@@ -7,7 +7,25 @@
       <div class="card-body">
         <h5 class="card-title">{{product.name}}</h5>
         <p class="card-text">{{product.description}}</p>
-        <a href="#" class="btn btn-primary">Add to Cart</a>
+        <form class="form-inline" action="/cart/{{product.id}}" method="post">
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <select class="form-control" id="quantity" name="quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          &nbsp;&nbsp;
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </div>
+        </form>
       </div>
     </div>
   </div>    {{!--end col--}}

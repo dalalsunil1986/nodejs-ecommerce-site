@@ -17,15 +17,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 const cookieSession = require('cookie-session');
 app.use(cookieSession({
   name: "session", 
-  secret: [process.env.SESSION_SECRET || 'secret']
+  keys: [process.env.SESSION_SECRET || 'secret1', 'secret2']
 }));
 
 app.use((req, res, next) => {
   console.log("setting res.locals");
-  res.locals.session = req.session;
+  // res.locals.session = req.session;
   res.locals.currentUser = req.session.currentUser;
   next();
 });
+
+// FLASH MESSAGES
+// ----------
+const flash = require('express-flash-messages');
+app.use(flash());
 
 // METHOD-OVERRIDE
 // ----------
@@ -52,12 +57,14 @@ app.use(morganToolkit());
 // ----------
 app.get('/', (req, res) => {
   console.log("inside the home route");
+  req.session.Patrick = "Patrick";
   res.render('home');
 });
 
 var productRoutes = require('./routes/product-routes');
+var cartRoutes = require('./routes/cart-routes');
 app.use('/products', productRoutes);
-
+app.use('/cart', cartRoutes);
 
 // HANDLEBARS TEMPLATES
 // ----------
