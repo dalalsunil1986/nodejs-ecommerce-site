@@ -1,12 +1,5 @@
 const Express = require('express');
-// const app = Express();
 const router = Express.Router();
-
-// const models = require('../models/sequelize');
-// const sequelize = models.sequelize;
-// const {Sequelize: {Op}} = models;   //destructuring: Op = Sequelize.Op  ... makes query operators available
-
-// const Product = models.Product;
 
 const {
   Product,

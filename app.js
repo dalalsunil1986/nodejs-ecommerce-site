@@ -22,7 +22,7 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   console.log("setting res.locals");
-  // res.locals.session = req.session;
+  res.locals.session = req.session;
   res.locals.currentUser = req.session.currentUser;
   next();
 });

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-3">
+        <img src="{{product.imageUrl}}" class="img-fluid img-thumbnail" alt="{{product.name}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p>{{product.name}}</p>
+        <p>{{product.[Category.name]}}</p>
+        <p>{{product.price}}</p>
+        <p>Current Quantity: {{product.quantity}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <input type="number" form="set-quantity-{{product.id}}" name="quantity"> 
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <form class="form-inline" id="set-quantity-{{product.id}}" action="/cart/{{product.id}}" method="post">
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Set Quantity</button>
+          </div>
+        </form>
+        <form class="form-inline" id="clear-{{product.id}}" action="/cart/clear" method="post">
+          <div class="form-group">
+            <input type="hidden" name="clear" value="{{product.id}}">
+            <button type="submit" class="btn btn-danger">Remove Item</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

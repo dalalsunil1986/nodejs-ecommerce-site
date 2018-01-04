@@ -37,6 +37,7 @@
     "express-method-override-get-post-support": "^1.0.0",
     "faker": "^4.1.0",
     "load-helpers": "^1.0.1",
+    "lodash": "^4.17.4",
     "method-override": "^2.3.10",
     "moment": "^2.20.1",
     "mongoose": "^4.13.7",

@@ -13,7 +13,7 @@
     </form>
     {{!--Creates a button to display and clear the current filter--}}
     {{#if searchSettings.category}}
-      {{> shared/_display-and-clear-filter thisFilter=searchSettings.category filterName="category"}}
+      {{> products/_filter-card thisFilter=searchSettings.category filterName="category"}}
     {{/if}}
   </div>
   <div class="col-xs-12 col-sm-6 col-md-4">
@@ -39,9 +39,9 @@
     </form>
     {{!--Creates a button to display and clear the current filter--}}
     {{#if searchSettings.minPrice}}
-      {{> shared/_display-and-clear-filter thisFilter=searchSettings.minPrice filterName="minPrice"}}
+      {{> products/_filter-card thisFilter=searchSettings.minPrice filterName="minPrice"}}
     {{/if}}
     {{#if searchSettings.maxPrice}}
-      {{> shared/_display-and-clear-filter thisFilter=searchSettings.maxPrice filterName="maxPrice"}}
+      {{> products/_filter-card thisFilter=searchSettings.maxPrice filterName="maxPrice"}}
     {{/if}}
   </div>

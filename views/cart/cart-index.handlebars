@@ -1,0 +1,21 @@
+<h2 class="text-center">Cart</h2>
+{{#if cart}}
+  {{#each cart as |item|}}
+    {{> cart/_cart-card product=item}}
+  {{/each}}
+  <div id="total">
+    Cart Total: {{cartTotal cart}}
+  </div>
+  <form class="form-inline" id="clear-all" action="/cart/clear" method="post">
+    <div class="form-group">
+      <input type="hidden" name="clear" value="all">
+      <button type="submit" class="btn btn-danger">Clear Cart</button>
+    </div>
+  </form>
+{{else}}
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="text-center">Cart is Empty</h4>
+    </div>
+  </div>
+{{/if}}

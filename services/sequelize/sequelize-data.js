@@ -47,6 +47,25 @@ sqlData.getProducts = (query) => {
   });
 };
 
+sqlData.getProductById = (id) => {
+  return Product.findById(id);
+};
+
+sqlData.getProductsByList = (list) => {
+  if (list.length === 0) {
+    return new Promise((resolve, reject) => {
+      return resolve([]);
+    });
+  } else {
+    return Product.findAll({
+      where: {id: {[Op.or]: list}}, 
+      include: [{model: Category}],
+      raw: true
+    });
+  }
+};
+
+
 
 sqlData.getProductAndRelated = (productId) => {
   let results = {};
