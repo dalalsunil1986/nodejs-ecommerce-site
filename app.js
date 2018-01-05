@@ -7,6 +7,12 @@ const app = express();
 // ----------
 app.locals.appName = "Mimir's Market";
 
+// DOTENV
+// ----------
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 // BODY-PARSER
 // ----------
 const bodyParser = require('body-parser');
@@ -57,7 +63,11 @@ app.use(morganToolkit());
 // ----------
 app.get('/', (req, res) => {
   console.log("inside the home route");
-  req.session.Patrick = "Patrick";
+  res.render('home');
+});
+
+app.get('/clearall', (req, res) => {
+  req.session = {};
   res.render('home');
 });
 

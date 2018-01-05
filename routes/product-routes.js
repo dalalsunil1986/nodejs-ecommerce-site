@@ -10,8 +10,6 @@ const {
   }  = require('../models/sequelize');
 
 const sqlData = require('../services/sequelize/sequelize-data');
-const helpers = require('../helpers');
-
 
 
 // Get Form Defaults
@@ -41,8 +39,7 @@ var _buildQuery = (searchSettings) => {
     searchSettings.category ? {name: searchSettings.category} : {};
     
   query.priceRange = {
-    price: {[Op.between]: [searchSettings.minPrice || formDefaults.priceRange.min, searchSettings.maxPrice ||formDefaults.priceRange.max]}};
-    // [Op.between]: [formDefaults.priceRange.min, formDefaults.priceRange.max]}
+    price: {[Op.between]: [searchSettings.minPrice || formDefaults.priceRange.min, searchSettings.maxPrice || formDefaults.priceRange.max]}};
   
   console.log("completed query");
   console.log(query);

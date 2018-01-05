@@ -1,7 +1,14 @@
 const Express = require('express');
 const router = Express.Router();
 
-const _ = require('lodash');
+const helpers = require('../helpers');
+
+var {
+  STRIPE_SK,
+  STRIPE_PK
+} = process.env;
+
+var stripe = require('stripe')(STRIPE_SK);
 
 const {
   Product,
@@ -71,6 +78,26 @@ router.post('/clear', (req, res) => {
   res.redirect('/cart');
 });
 
+
+// MIDDLEWARE: CHECKOUT PAGE 
+// Saving POSTed data, making it available for subsequent GETs of the same route
+// ----------
+router.use('/checkout', (req, res, next) => {
+  res.locals.STRIPE_PK = STRIPE_PK; 
+  if (req.body.user && req.body.user != {}) {
+    req.session.user = req.body.user;
+  }
+  console.log("req.session.user");
+  console.log(req.session.user);
+  if (req.session.user && req.session.user != {}) {
+    res.locals.userInfo = req.session.user;
+    res.locals.gotUserInfo = true;
+  }
+  console.log("res.locals");
+  console.log(res.locals);
+  next();
+});
+
 // SHOW CART *OR* CHECKOUT PAGE 
 // ----------
 router.get(['/', '/checkout'], (req, res) => {
@@ -90,6 +117,20 @@ router.get(['/', '/checkout'], (req, res) => {
       cart: cartWithQty
     });
   });  
+});
+
+// RECEIVING USER DATA TO INITIATE TRANSACTION
+// ----------
+router.post('/checkout', (req, res) => {
+  res.redirect('/cart/checkout');
+});
+
+// RECEIVING STRIPE TRANSACTIONS
+// ----------
+router.post('/charges', (req, res) => {
+  var charge = req.body;
+  
+  res.redirect('back');
 });
 
 // ADD OR UPDATE AN ITEM IN THE CART CONTENTS
