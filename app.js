@@ -52,12 +52,28 @@ app.use(methodOverride(
 // ----------
 app.use(express.static(`${__dirname}/public`));
 
+
+
 // MORGAN - LOGGING
 // ----------
 const morgan = require('morgan');
 const morganToolkit = require('morgan-toolkit')(morgan);
 
 app.use(morganToolkit());
+
+
+// MONGOOSE
+// ----------
+const mongoose = require('mongoose');
+// const bluebird = require('bluebird');
+// mongoose.promise = bluebird;
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState) {
+    next();
+  } else {
+    require('./mongo')().then(() => next());
+  }
+});
 
 // ROUTING
 // ----------
@@ -72,9 +88,13 @@ app.get('/clearall', (req, res) => {
 });
 
 var productRoutes = require('./routes/product-routes');
-var cartRoutes = require('./routes/cart-routes');
 app.use('/products', productRoutes);
+
+var cartRoutes = require('./routes/cart-routes');
 app.use('/cart', cartRoutes);
+
+var adminRoutes = require('./routes/admin-routes');
+app.use('/admin', adminRoutes);
 
 // HANDLEBARS TEMPLATES
 // ----------
