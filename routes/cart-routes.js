@@ -1,12 +1,16 @@
 const Express = require('express');
 const router = Express.Router();
 
-const helpers = require('../helpers');
+const mongoose = require('mongoose');
+const models = require('../models/mongoose');
+const {StripeTransaction} = models;
+
+const moment = require('moment');
 
 var {
   STRIPE_SK,
   STRIPE_PK
-} = process.env;
+} = process.env;  
 
 var stripe = require('stripe')(STRIPE_SK);
 
@@ -78,6 +82,19 @@ router.post('/clear', (req, res) => {
   res.redirect('/cart');
 });
 
+// MIDDLEWARE: CART PAGE 
+// Reduces db calls by saving product details to req.session.cart
+// Implies that /cart must always load at least once before /cart/checkout
+// ----------
+router.use('/', (req, res, next) => {
+  if (req.session.cart && req.session.cart != {}) {
+    _buildCartContentsFromSession(req)
+    .then(cartWithQty => {
+      req.session.cart = cartWithQty;
+    });
+  }
+  next();
+});
 
 // MIDDLEWARE: CHECKOUT PAGE 
 // Saving POSTed data, making it available for subsequent GETs of the same route
@@ -109,15 +126,15 @@ router.get(['/', '/checkout'], (req, res) => {
   }[req.path];
   
   // gets the cart contents
-  _buildCartContentsFromSession(req)
-  .then(cartWithQty => {
+  // _buildCartContentsFromSession(req)
+  // .then(cartWithQty => {
   
   // renders the chosen template with the cart contents
-    res.render(templateName, {
-      cart: cartWithQty
-    });
-  });  
-});
+  res.render(templateName, {
+    // cart: cartWithQty
+    cart: req.session.cart
+  });
+});  
 
 // RECEIVING USER DATA TO INITIATE TRANSACTION
 // ----------
@@ -128,9 +145,32 @@ router.post('/checkout', (req, res) => {
 // RECEIVING STRIPE TRANSACTIONS
 // ----------
 router.post('/charges', (req, res) => {
-  var charge = req.body;
-  
-  res.redirect('back');
+  var post = req.body;
+  var cart = req.session.cart;
+  var user = req.session.user;
+  stripe.charges.create({
+    amount: cart.reduce((sum, item) => sum + (item.price*item.quantity), 0),
+    currency: 'usd',
+    description: user.firstName+" "+user.lastName+" - "+moment(Date.now()).format("YYYY M D"),
+    source: post.stripeToken
+  })
+  .then((charge) => {
+    console.log(charge);
+    return new StripeTransaction({
+      stripeDetails: {
+        stripeToken: post.stripeToken,
+        stripeTokenType: charge.source.object,
+        stripeCardType: charge.source.brand,
+        stripeEmail: charge.source.name
+      },
+      userInfo: user,
+      cartContents: cart 
+    });
+  })
+  .then((transaction) => {
+    // Redirect or render here
+    res.redirect('home');
+  });
 });
 
 // ADD OR UPDATE AN ITEM IN THE CART CONTENTS
