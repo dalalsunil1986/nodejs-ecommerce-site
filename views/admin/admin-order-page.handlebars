@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Admin Order Detail Page</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Ordered Items</h4>
+    {{#each transaction.cartContents as |product|}}
+      <table class="table table-striped table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Name</th>
+            <td>{{product.name}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Price</th>
+            <td>{{product.price}}</td>
+          </tr>
+          <tr>
+            <th scope="row">SKU</th>
+            <td>{{product.sku}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>{{product.description}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Category</th>
+            <td>{{product.Category}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Quantity</th>
+            <td>{{product.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+    {{/each}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Customer Info</h4>
+    <table class="table table-striped table-hover">
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">First Name</th>
+          <td>{{transaction.userInfo.firstName}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Last Name</th>
+          <td>{{transaction.userInfo.lastName}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Email</th>
+          <td>{{transaction.userInfo.email}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Street</th>
+          <td>{{transaction.userInfo.street}}</td>
+        </tr>
+        <tr>
+          <th scope="row">City</th>
+          <td>{{transaction.userInfo.city}}</td>
+        </tr>
+        <tr>
+          <th scope="row">State</th>
+          <td>{{transaction.userInfo.state}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Order Info</h4>
+    <table class="table table-striped table-hover">
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Checkout Date</th>
+          <td>{{mdyyyy transaction.createdAt}}</td> 
+        </tr>
+        <tr>
+          <th scope="row">Stripe Token</th>
+          <td>{{transaction.stripeDetails.stripeToken}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Token Type</th>
+          <td>{{transaction.stripeDetails.stripeTokenType}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
