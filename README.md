@@ -6,8 +6,15 @@ Mimir's Market relies on Sequelize with PostgreSQL for product data and stores
 Stripe transactions with Mongoose in MongoDB.
 
 ## Tech Stack
-PostgreSQL, Sequelize, MongoDB, Mongoose, Stripe, Node, Express, Handlebars, 
-Cookie-Session
+- PostgreSQL
+- Sequelize
+- MongoDB
+- Mongoose
+- Stripe
+- Node
+- Express
+- Handlebars
+- Cookie-Session
 
 ## Wireframes
 <img src="https://raw.githubusercontent.com/patrickklima/project_mimirs_market/master/docs/wireframes/products_index.png" 
